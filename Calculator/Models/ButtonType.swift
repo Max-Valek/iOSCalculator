@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /*
  ButtonType enum
@@ -26,24 +27,39 @@ enum ButtonType: Hashable, CustomStringConvertible {
     case allClear
     case clear
     
+    /// Button text
     var description: String {
         switch self {
-        case .digit(let digit):
-            return digit.description
-        case .operation(let operation):
-            return operation.description
-        case .negative:
-            return "±"
-        case .percent:
-            return "%"
-        case .decimal:
-            return "."
-        case .equals:
-            return "="
-        case .allClear:
-            return "AC"
-        case .clear:
-            return "C"
+        case .digit(let digit): return digit.description
+        case .operation(let operation): return operation.description
+        case .negative: return "±"
+        case .percent: return "%"
+        case .decimal: return "."
+        case .equals: return "="
+        case .allClear: return "AC"
+        case .clear: return "C"
+        }
+    }
+    
+    /// Button background color
+    var backgroundColor: Color {
+        switch self {
+        case .allClear, .clear, .negative, .percent:
+            return Color(.lightGray)
+        case .operation, .equals:
+            return .orange
+        case .digit, .decimal:
+            return .secondary
+        }
+    }
+    
+    /// Button text color
+    var foregroundColor: Color {
+        switch self {
+        case .allClear, .clear, .negative, .percent:
+            return .black
+        default:
+            return .white
         }
     }
 }
