@@ -10,10 +10,10 @@ import SwiftUI
 /// Custom ButtonStyle for calculator buttons
 struct CalculatorButtonStyle: ButtonStyle {
     
-    var size: CGFloat
-    var backgroundColor: Color
-    var foregroundColor: Color
-    var isWide: Bool = false
+    var size: CGFloat               // button size
+    var backgroundColor: Color      // button background
+    var foregroundColor: Color      // button text
+    var isWide: Bool = false        // wide button (0)
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

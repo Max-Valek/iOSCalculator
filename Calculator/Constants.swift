@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics     // for CGFloat
 
+/// Constant values for the app
 struct Constants {
-    
     static let padding: CGFloat = 12.0
 }

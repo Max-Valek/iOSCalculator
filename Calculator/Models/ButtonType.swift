@@ -8,15 +8,7 @@
 import Foundation
 import SwiftUI
 
-/*
- ButtonType enum
- 
- Numeric buttons encapsulated in the Digit enum.
- Numberic operations encapsulated in ArithmeticOperation enum.
- 
- Hashable: for iteration
- CustomStringConvertible: button text
- */
+/// ButtonType enum
 enum ButtonType: Hashable, CustomStringConvertible {
     case digit(_ digit: Digit)
     case operation(_ operation: ArithmeticOperation)
@@ -30,14 +22,22 @@ enum ButtonType: Hashable, CustomStringConvertible {
     /// Button text
     var description: String {
         switch self {
-        case .digit(let digit): return digit.description
-        case .operation(let operation): return operation.description
-        case .negative: return "±"
-        case .percent: return "%"
-        case .decimal: return "."
-        case .equals: return "="
-        case .allClear: return "AC"
-        case .clear: return "C"
+        case .digit(let digit):
+            return digit.description
+        case .operation(let operation):
+            return operation.description
+        case .negative:
+            return "±"
+        case .percent:
+            return "%"
+        case .decimal:
+            return "."
+        case .equals:
+            return "="
+        case .allClear:
+            return "AC"
+        case .clear:
+            return "C"
         }
     }
     

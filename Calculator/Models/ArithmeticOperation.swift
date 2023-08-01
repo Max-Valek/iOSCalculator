@@ -7,6 +7,12 @@
 
 import Foundation
 
+/*
+ Enum for arithmetic operations buttons.
+ 
+ CaseIterable: easily get an ordered array of all cases using .allCases.
+ CustomStringConvertible: requires a description property. use this for button text.
+ */
 enum ArithmeticOperation: CaseIterable, CustomStringConvertible {
     case addition, subtraction, multiplication, division
     
