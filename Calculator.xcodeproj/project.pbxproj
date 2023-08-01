@@ -16,6 +16,7 @@
 		9D3D34D82A797E5C000AE585 /* ArithmeticOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D34D72A797E5C000AE585 /* ArithmeticOperation.swift */; };
 		9D3D34DB2A798541000AE585 /* CalculatorButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D34DA2A798541000AE585 /* CalculatorButtonStyle.swift */; };
 		9D3D34DE2A79868F000AE585 /* CalculatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D34DD2A79868F000AE585 /* CalculatorButton.swift */; };
+		9D3D34E02A7987C0000AE585 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D34DF2A7987C0000AE585 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		9D3D34D72A797E5C000AE585 /* ArithmeticOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticOperation.swift; sourceTree = "<group>"; };
 		9D3D34DA2A798541000AE585 /* CalculatorButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonStyle.swift; sourceTree = "<group>"; };
 		9D3D34DD2A79868F000AE585 /* CalculatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButton.swift; sourceTree = "<group>"; };
+		9D3D34DF2A7987C0000AE585 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				9D3D34C12A797B2B000AE585 /* CalculatorApp.swift */,
+				9D3D34DF2A7987C0000AE585 /* Constants.swift */,
 				9D3D34D92A79852C000AE585 /* Styles */,
 				9D3D34D12A797D36000AE585 /* Models */,
 				9D3D34D42A797E1F000AE585 /* Views */,
@@ -191,6 +194,7 @@
 				9D3D34DB2A798541000AE585 /* CalculatorButtonStyle.swift in Sources */,
 				9D3D34C22A797B2B000AE585 /* CalculatorApp.swift in Sources */,
 				9D3D34D62A797E4E000AE585 /* Digit.swift in Sources */,
+				9D3D34E02A7987C0000AE585 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

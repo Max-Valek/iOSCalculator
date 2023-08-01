@@ -17,10 +17,18 @@ extension CalculatorView {
         var body: some View {
             Button(buttonType.description, action: {})
                 .buttonStyle(CalculatorButtonStyle(
-                    size: 80,
+                    size: getButtonSize(),
                     backgroundColor: buttonType.backgroundColor,
                     foregroundColor: buttonType.foregroundColor)
                 )
+        }
+        
+        // Calculate button size
+        private func getButtonSize() -> CGFloat {
+            let screenWidth = UIScreen.main.bounds.width
+            let buttonCount: CGFloat = 4.0
+            let spacingCount = buttonCount + 1
+            return (screenWidth - (spacingCount * Constants.padding)) / buttonCount
         }
     }
 }
