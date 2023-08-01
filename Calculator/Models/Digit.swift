@@ -7,16 +7,11 @@
 
 import Foundation
 
-/*
- Enum for digit buttons.
- 
- Int type, get its value using rawValue.
- CaseIterable: easily get an ordered array of all cases using .allCases.
- CustomStringConvertible: requires a description property. use this for button text.
- */
+/// Enum for digit buttons (raw values : 0-9)
 enum Digit: Int, CaseIterable, CustomStringConvertible {
     case zero, one, two, three, four, five, six, seven, eight, nine
     
+    /// Button text (CustomStringConvertible)
     var description: String {
         "\(rawValue)"
     }

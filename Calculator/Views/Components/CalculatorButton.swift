@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-/*
- CalculatorButton will not be used outside CalculatorView,
- so put it in an extension.
- */
+/// CalculatorButton will not be used outside CalculatorView, put it in an extension.
 extension CalculatorView {
+    
     struct CalculatorButton: View {
         
         let buttonType: ButtonType
@@ -29,9 +27,6 @@ extension CalculatorView {
                 )
         }
         
-        
-        /// Calculate button size based on screen size.
-        /// - Returns: the size for a button
         private func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
             let buttonCount: CGFloat = 4.0
@@ -54,5 +49,6 @@ extension CalculatorView {
 struct CalculatorView_CalculatorButton_Previews: PreviewProvider {
     static var previews: some View {
         CalculatorView.CalculatorButton(buttonType: .digit(.five))
+            .environmentObject(CalculatorView.ViewModel())
     }
 }

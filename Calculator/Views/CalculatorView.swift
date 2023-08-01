@@ -35,9 +35,8 @@ struct CalculatorView_Previews: PreviewProvider {
 
 // MARK: - COMPONENTS
 
-// Encapsulate subviews
 extension CalculatorView {
-    
+    /// Number being displayed
     private var displayText: some View {
         Text(viewModel.displayText)
             .padding()
@@ -47,7 +46,7 @@ extension CalculatorView {
             .lineLimit(1)               // only 1 line
             .minimumScaleFactor(0.2)    // shrink when displaying large numbers
     }
-    
+    /// Calculator buttons
     private var buttonPad: some View {
         VStack(spacing: Constants.padding) {
             ForEach(viewModel.buttonTypes, id: \.self) { row in

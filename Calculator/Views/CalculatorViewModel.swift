@@ -16,11 +16,12 @@ extension CalculatorView {
         
         @Published private var calculator = Calculator()
         
+        /// Number displayed above buttons
         var displayText: String {
             return calculator.displayText
         }
         
-        // Calculator buttons with the correct order
+        /// Calculator buttons with the correct order
         var buttonTypes: [[ButtonType]] {
             let clearType: ButtonType = calculator.showAllClear ? .allClear : .clear
             return [
@@ -34,6 +35,7 @@ extension CalculatorView {
         
         // MARK: - ACTIONS
         
+        /// Perform associated Calculator function when a button is pressed
         func performAction(for buttonType: ButtonType) {
             switch buttonType {
             case .digit(let digit):
@@ -57,7 +59,7 @@ extension CalculatorView {
         
         // MARK: - HELPERS
         
-        // highlight operation button if user just pressed it
+        /// Operation button is highlighted if user just pressed it
         func buttonTypeIsHighlighted(buttonType: ButtonType) -> Bool {
             guard case .operation(let operation) = buttonType else { return false }
             return calculator.operationIsHighlighted(operation)
