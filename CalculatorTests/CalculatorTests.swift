@@ -251,12 +251,33 @@ final class CalculatorTests: XCTestCase {
     
     /// Test division operation
     func test_division() {
-        calculator.appendDigit(.six)
-        calculator.setOperation(.division)
-        calculator.appendDigit(.two)
-        calculator.calculateResult()
+        /// Test simplest division (4 / 2)
+        calculator.appendDigit(.four)           /// "4"
+        calculator.setOperation(.division)      /// "0", operation("4", "/")
+        calculator.appendDigit(.two)            /// "2", operation("4", "/")
+        calculator.calculateResult()            /// "2", 4 / 2 = 2
+        XCTAssertEqual(calculator.displayText, "2")
         
-        XCTAssertEqual(calculator.displayText, "3")
+        /// Test dividing decimals (20.7 / 4.5)
+        calculator.reset()                              /// "0"
+        calculator.appendDigit(.two)                    /// "2"
+        calculator.appendDigit(.zero)                   /// "20"
+        calculator.addDecimal()                         /// "20."
+        calculator.appendDigit(.seven)                  /// "20.7"
+        calculator.setOperation(.division)              /// "0", operation("20.7", "/")
+        calculator.appendDigit(.four)                   /// "4", operation("20.7", "/")
+        calculator.addDecimal()                         /// "4.", operation("20.7", "/")
+        calculator.appendDigit(.five)                   /// "4.5", operation("20.7", "/")
+        calculator.calculateResult()                    /// "4.6", 20.7 / 4.5 = 4.6
+        XCTAssertEqual(calculator.displayText, "4.6")
+        
+        /// Test consecutive divisions (divide the result set above by 2.3)
+        calculator.setOperation(.division)      /// "0", operation("4.6", "/")
+        calculator.appendDigit(.two)            /// "2", operation("4.6", "/")
+        calculator.addDecimal()                 /// "2.", operation("4.6", "/")
+        calculator.appendDigit(.three)          /// "2.3", operation("4.6", "/")
+        calculator.calculateResult()            /// "2", 4.6 / 2.3 = 2
+        XCTAssertEqual(calculator.displayText, "2")
     }
 
 }
