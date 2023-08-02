@@ -192,12 +192,33 @@ final class CalculatorTests: XCTestCase {
     
     /// Test subtraction operation
     func test_subtraction() {
-        calculator.appendDigit(.five)
-        calculator.setOperation(.subtraction)
-        calculator.appendDigit(.two)
-        calculator.calculateResult()
+        /// Test simplest subtraction (2 - 1)
+        calculator.appendDigit(.two)                /// "2"
+        calculator.setOperation(.subtraction)       /// "0", operation("2", "-")
+        calculator.appendDigit(.one)                /// "1", operation("2", "-")
+        calculator.calculateResult()                /// "1", 2 - 1 = 1
+        XCTAssertEqual(calculator.displayText, "1")
         
-        XCTAssertEqual(calculator.displayText, "3")
+        /// Test subtracting decimals (10.05 - 5.05)
+        calculator.reset()                          /// "0"
+        calculator.appendDigit(.one)                /// "1"
+        calculator.appendDigit(.zero)               /// "10"
+        calculator.addDecimal()                     /// "10."
+        calculator.appendDigit(.zero)               /// "10.0"
+        calculator.appendDigit(.five)               /// "10.05"
+        calculator.setOperation(.subtraction)       /// "0", operation("10.05", "-")
+        calculator.appendDigit(.five)               /// "5", operation("10.05", "-")
+        calculator.addDecimal()                     /// "5.", operation("10.05", "-")
+        calculator.appendDigit(.zero)               /// "5.0", operation("10.05", "-")
+        calculator.appendDigit(.five)               /// "5.05", operation("10.05", "-")
+        calculator.calculateResult()                /// "5", 10.05 - 5.05 = 5
+        XCTAssertEqual(calculator.displayText, "5")
+        
+        /// Test consecutive subtractions (subtract 3 from the result set above)
+        calculator.setOperation(.subtraction)       /// "0", operation("5", "-")
+        calculator.appendDigit(.three)              /// "3", operation("5", "-")
+        calculator.calculateResult()                /// "2", 5 - 3 = 2
+        XCTAssertEqual(calculator.displayText, "2")
     }
     
     /// Test multiplication operation
