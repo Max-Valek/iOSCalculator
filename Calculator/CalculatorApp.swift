@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+/// Entrypoint for the application.
 @main
 struct CalculatorApp: App {
+    
     var body: some Scene {
         WindowGroup {
             CalculatorView()
-                .environmentObject(CalculatorView.ViewModel())      // pass instance of ViewModel as environment object
+                /// Pass ViewModel instance into environment.
+                .environmentObject(CalculatorView.ViewModel())
         }
     }
 }

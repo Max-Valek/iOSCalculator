@@ -14,15 +14,14 @@ extension CalculatorView {
         
         // MARK: - PROPERTIES
         
-        /// Instance of calculator model/API
+        /// Instance of calculator model (API)
         @Published private var calculator = Calculator()
         
-        /// Number displayed above buttons
+        /// Stringified number to display above buttons.
         var displayText: String {
             return calculator.displayText
         }
-        
-        /// Calculator buttons matrix
+        /// Calculator buttons matrix.
         var buttons: [[ButtonType]] {
             let clearType: ButtonType = calculator.showAllClear ? .allClear : .clear
             return [
@@ -33,7 +32,6 @@ extension CalculatorView {
                 [.digit(.zero), .decimal, .equals]
             ]
         }
-        
         /// Size of calculator buttons
         var buttonSize: CGFloat = 0.0
         
@@ -48,34 +46,27 @@ extension CalculatorView {
         func performAction(for buttonType: ButtonType) {
             switch buttonType {
             case .digit(let digit):
-                calculator.appendDigit(digit)
+                calculator.appendDigit(digit)           /// append value for digit pressed to displayed number
             case .operation(let operation):
-                calculator.setOperation(operation)
+                calculator.setOperation(operation)      /// create expression with number and operation
             case .negative:
-                calculator.negate()
+                calculator.negate()                     /// toggle positive/negative
             case .percent:
-                calculator.convertToPercentage()
+                calculator.convertToPercentage()        /// divide number by 100
             case .decimal:
-                calculator.addDecimal()
+                calculator.addDecimal()                 /// append a decimal point (if allowed)
             case .equals:
-                calculator.calculateResult()
+                calculator.calculateResult()            /// evaluate an expression
             case .allClear:
-                calculator.reset()
+                calculator.reset()                      /// reset calculator to defaults
             case .clear:
-                calculator.clearLastEntry()
+                calculator.clearLastEntry()             /// clear the last entry
             }
-        }
-        
-        // MARK: - HELPERS
-        
-        /// Return true if the provided operation button should be highlighted (user just pressed it)
-        func buttonIsHighlighted(buttonType: ButtonType) -> Bool {
-            guard case .operation(let operation) = buttonType else { return false }
-            return calculator.operationIsHighlighted(operation)
         }
         
         // MARK: - CALCULATORBUTTON FUNCTIONS
         
+        /// Calculate the size for one button using screen size
         func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
             let spacingCount = Constants.buttonsPerRow + 1
@@ -90,6 +81,14 @@ extension CalculatorView {
         /// Get a button's foreground color. (background color if button highlighted)
         func getForegroundColor(for buttonType: ButtonType) -> Color {
             return buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
+        }
+        
+        // MARK: - HELPERS
+        
+        /// Return true if the provided operation button should be highlighted (user just pressed it)
+        func buttonIsHighlighted(buttonType: ButtonType) -> Bool {
+            guard case .operation(let operation) = buttonType else { return false }
+            return calculator.operationIsHighlighted(operation)
         }
     }
 }

@@ -10,13 +10,13 @@ import SwiftUI
 /// Only used in CalculatorView, put it in an extension.
 extension CalculatorView {
     
-    /// View for a calculator button
+    /// View for a singular calculator button.
     struct CalculatorButton: View {
         
         // MARK: - PROPERTIES
         
         /// The ButtonType enum case passed in
-        let buttonType: ButtonType
+        let button: ButtonType
         /// View model instance passed into environment
         @EnvironmentObject private var viewModel: ViewModel
         
@@ -25,15 +25,15 @@ extension CalculatorView {
         var body: some View {
             /// Title: button description
             /// Action: perform the action associated with the specific button
-            Button(buttonType.description) {
-                viewModel.performAction(for: buttonType)
+            Button(button.description) {
+                viewModel.performAction(for: button)
             }
                 /// Apply custom button style
                 .buttonStyle(CalculatorButtonStyle(
                     size: viewModel.getButtonSize(),
-                    backgroundColor: viewModel.getBackgroundColor(for: buttonType),
-                    foregroundColor: viewModel.getForegroundColor(for: buttonType),
-                    isWide: buttonType == .digit(.zero))
+                    backgroundColor: viewModel.getBackgroundColor(for: button),
+                    foregroundColor: viewModel.getForegroundColor(for: button),
+                    isWide: button == .digit(.zero))
                 )
         }
     }
@@ -43,7 +43,7 @@ extension CalculatorView {
 
 struct CalculatorView_CalculatorButton_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorView.CalculatorButton(buttonType: .digit(.five))
+        CalculatorView.CalculatorButton(button: .digit(.five))
             .environmentObject(CalculatorView.ViewModel())
     }
 }

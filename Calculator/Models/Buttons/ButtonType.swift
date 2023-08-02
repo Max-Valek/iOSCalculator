@@ -13,9 +13,9 @@ import SwiftUI
 /// Enumeration representing different types of calculator buttons.
 enum ButtonType: Hashable, CustomStringConvertible {
     
-    /// Represents digit buttons with associated digit values
+    /// Represents digit buttons with associated DigitButton values.
     case digit(_ digit: DigitButton)
-    /// Represents arithmetic operation buttons with associated arithmetic operations.
+    /// Represents arithmetic operation buttons with associated OperationButton values.
     case operation(_ operation: OperationButton)
     /// ±, %, ., =, AC, and C buttons
     case negative, percent, decimal, equals, allClear, clear

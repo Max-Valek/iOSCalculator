@@ -17,20 +17,19 @@ extension Color {
     // MARK: BUTTONS
     
     /// backgrounds
-    static let topButtonBg = Color(.lightGray)
-    static let rightButtonBg = Color.orange
-    static let numberButtonBg = Color.secondary
+    static let topButtonBg = Color(.lightGray)      /// C/AC, ±, and %
+    static let rightButtonBg = Color.orange         /// right column (÷, x, -, +, =)
+    static let numberButtonBg = Color.secondary     /// digits and decimal
     
     /// foregrounds
-    static let topButtonText = Color.black
-    static let otherButtonText = Color.white
+    static let topButtonText = Color.black          /// C/AC, ±, and %
+    static let otherButtonText = Color.white        /// every other button
     
     /// Button overlay when pressed
     static let buttonPressedOverlay = Color(white: 1.0, opacity: 0.2)
     
     // MARK: DISPLAY TEXT
     
-    /// Display text color
-    static let displayTextColor = Color.white
+    static let displayTextColor = Color.white       /// Display text color
 }
 

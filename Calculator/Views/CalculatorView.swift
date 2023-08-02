@@ -20,9 +20,9 @@ struct CalculatorView: View {
     var body: some View {
         VStack {
             Spacer()
-            /// The number currently displayed above buttons
+            /// Number above buttons
             displayText
-            /// Calculator buttons
+            /// Grid of calculator buttons
             buttonPad
         }
         .padding(Constants.padding)
@@ -59,7 +59,7 @@ extension CalculatorView {
             ForEach(viewModel.buttons, id: \.self) { row in
                 HStack(spacing: Constants.padding) {
                     ForEach(row, id: \.self) { buttonType in
-                        CalculatorButton(buttonType: buttonType)
+                        CalculatorButton(button: buttonType)
                     }
                 }
             }

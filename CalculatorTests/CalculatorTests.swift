@@ -35,7 +35,13 @@ final class CalculatorTests: XCTestCase {
         calculator.appendDigit(.two)
         calculator.appendDigit(.three)
         
-        XCTAssertEqual(calculator.displayText, "123", "Appending digits 1, 2, and 3 should be 123")
+        XCTAssertEqual(calculator.displayText, "123")
+        
+        calculator.appendDigit(.zero)
+        calculator.addDecimal()
+        calculator.appendDigit(.nine)
+        
+        XCTAssertEqual(calculator.displayText, "1,230.9")
     }
     
     /// Test negating the number
@@ -43,10 +49,15 @@ final class CalculatorTests: XCTestCase {
         calculator.appendDigit(.one)
         calculator.appendDigit(.two)
         calculator.appendDigit(.three)
-        
         calculator.negate()
         
         XCTAssertEqual(calculator.displayText, "-123")
+        
+        calculator.appendDigit(.seven)
+        calculator.appendDigit(.five)
+        calculator.negate()
+        
+        XCTAssertEqual(calculator.displayText, "12,375")
     }
     
     /// Test converting the number to a percentage
@@ -54,10 +65,22 @@ final class CalculatorTests: XCTestCase {
         calculator.appendDigit(.one)
         calculator.appendDigit(.two)
         calculator.appendDigit(.three)
+        calculator.appendDigit(.four)
+        calculator.appendDigit(.five)
+        calculator.appendDigit(.six)
+        calculator.appendDigit(.seven)
         
         calculator.convertToPercentage()
         
-        XCTAssertEqual(calculator.displayText, "1.23")
+        XCTAssertEqual(calculator.displayText, "12,345.67")
+        
+        calculator.convertToPercentage()
+        
+        XCTAssertEqual(calculator.displayText, "123.4567")
+        
+        calculator.convertToPercentage()
+        
+        XCTAssertEqual(calculator.displayText, "1.234567")
     }
     
     /// Test adding a decimal point
