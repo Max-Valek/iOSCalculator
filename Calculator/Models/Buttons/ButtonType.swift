@@ -12,7 +12,6 @@ import SwiftUI
 
 /// Enumeration representing different types of calculator buttons.
 enum ButtonType: Hashable, CustomStringConvertible {
-    
     /// Represents digit buttons with associated digit values
     case digit(_ digit: DigitButton)
     /// Represents arithmetic operation buttons with associated arithmetic operations.
@@ -38,11 +37,11 @@ enum ButtonType: Hashable, CustomStringConvertible {
     var backgroundColor: Color {
         switch self {
         case .allClear, .clear, .negative, .percent:
-            return Color(.lightGray)
+            return .topButtonBg
         case .operation, .equals:
-            return .orange
+            return .rightButtonBg
         case .digit, .decimal:
-            return .secondary
+            return .numberButtonBg
         }
     }
     
@@ -50,9 +49,9 @@ enum ButtonType: Hashable, CustomStringConvertible {
     var foregroundColor: Color {
         switch self {
         case .allClear, .clear, .negative, .percent:
-            return .black
+            return .topButtonText
         default:
-            return .white
+            return .otherButtonText
         }
     }
 }

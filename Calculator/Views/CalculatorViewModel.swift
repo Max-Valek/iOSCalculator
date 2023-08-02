@@ -37,6 +37,7 @@ extension CalculatorView {
         /// Size of calculator buttons
         var buttonSize: CGFloat = 0.0
         
+        /// Calculate button size once when class is initialized
         init() {
             self.buttonSize = getButtonSize()
         }

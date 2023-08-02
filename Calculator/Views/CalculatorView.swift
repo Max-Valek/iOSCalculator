@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Main view for the app.
 struct CalculatorView: View {
     
     // MARK: - PROPERTIES
@@ -19,7 +20,9 @@ struct CalculatorView: View {
     var body: some View {
         VStack {
             Spacer()
+            /// The number currently displayed above buttons
             displayText
+            /// Calculator buttons
             buttonPad
         }
         .padding(Constants.padding)
@@ -49,6 +52,7 @@ extension CalculatorView {
             .lineLimit(1)               // only 1 line
             .minimumScaleFactor(0.2)    // shrink when displaying large numbers
     }
+    
     /// Calculator buttons
     private var buttonPad: some View {
         VStack(spacing: Constants.padding) {

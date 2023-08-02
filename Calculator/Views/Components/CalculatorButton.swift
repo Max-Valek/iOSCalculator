@@ -23,9 +23,12 @@ extension CalculatorView {
         // MARK: - BODY
         
         var body: some View {
+            /// Title: button description
+            /// Action: perform the action associated with the specific button
             Button(buttonType.description) {
                 viewModel.performAction(for: buttonType)
             }
+                /// Apply custom button style
                 .buttonStyle(CalculatorButtonStyle(
                     size: viewModel.getButtonSize(),
                     backgroundColor: viewModel.getBackgroundColor(for: buttonType),

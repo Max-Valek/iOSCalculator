@@ -8,8 +8,9 @@
 import Foundation
 import CoreGraphics /// (CGFloat)
 
-/// Constant values for the app
+/// Constant used throughout the app.
 struct Constants {
+    
     static let padding: CGFloat = 12.0              /// use constant padding throughout
     static let buttonLabelSize: CGFloat = 32.0      /// font size for button text
     static let buttonsPerRow: CGFloat = 4.0         /// number of buttons in each row (4)
