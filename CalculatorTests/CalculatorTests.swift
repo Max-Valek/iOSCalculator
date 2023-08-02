@@ -161,12 +161,33 @@ final class CalculatorTests: XCTestCase {
     
     /// Test addition operation
     func test_addition() {
-        calculator.appendDigit(.one)
-        calculator.setOperation(.addition)
-        calculator.appendDigit(.two)
-        calculator.calculateResult()
-        
+        /// Test simplest addition (1 + 2)
+        calculator.appendDigit(.one)            /// "1"
+        calculator.setOperation(.addition)      /// "0", operation("1", "+")
+        calculator.appendDigit(.two)            /// "2", operation("1", "+")
+        calculator.calculateResult()            /// "3", 1 + 2 = 3
         XCTAssertEqual(calculator.displayText, "3")
+        
+        /// Test adding decimals (10.05 + 4.95)
+        calculator.reset()                      /// "0"
+        calculator.appendDigit(.one)            /// "1"
+        calculator.appendDigit(.zero)           /// "10"
+        calculator.addDecimal()                 /// "10."
+        calculator.appendDigit(.zero)           /// "10.0"
+        calculator.appendDigit(.five)           /// "10.05"
+        calculator.setOperation(.addition)      /// "0", operation("10.05", "+")
+        calculator.appendDigit(.four)           /// "4", operation("10.05", "+")
+        calculator.addDecimal()                 /// "4.", operation("10.05", "+")
+        calculator.appendDigit(.nine)           /// "4.9", operation("10.05", "+")
+        calculator.appendDigit(.five)           /// "4.95", operation("10.05", "+")
+        calculator.calculateResult()            /// "15", 10.05 + 4.95 = 15
+        XCTAssertEqual(calculator.displayText, "15")
+        
+        /// Test consecutive additions (add 5 to the result set above)
+        calculator.setOperation(.addition)      /// "0", operation("15", "+")
+        calculator.appendDigit(.five)           /// "5", operation("15", "+")
+        calculator.calculateResult()            /// "20", 15 + 5 = 20
+        XCTAssertEqual(calculator.displayText, "20")
     }
     
     /// Test subtraction operation
