@@ -10,7 +10,10 @@ import XCTest
 
 final class CalculatorTests: XCTestCase {
     
+    /// Calculator property
     var calculator: Calculator!
+    
+    // MARK: - SETUP AND TEARDOWN
     
     /// Setup function called before each test
     override func setUpWithError() throws {
@@ -103,6 +106,33 @@ final class CalculatorTests: XCTestCase {
     func test_addition() {
         calculator.appendDigit(.one)
         calculator.setOperation(.addition)
+        calculator.appendDigit(.two)
+        calculator.calculateResult()
+        
+        XCTAssertEqual(calculator.displayText, "3")
+    }
+    
+    func test_subtraction() {
+        calculator.appendDigit(.five)
+        calculator.setOperation(.subtraction)
+        calculator.appendDigit(.two)
+        calculator.calculateResult()
+        
+        XCTAssertEqual(calculator.displayText, "3")
+    }
+    
+    func test_multiplication() {
+        calculator.appendDigit(.five)
+        calculator.setOperation(.multiplication)
+        calculator.appendDigit(.two)
+        calculator.calculateResult()
+        
+        XCTAssertEqual(calculator.displayText, "10")
+    }
+    
+    func test_division() {
+        calculator.appendDigit(.six)
+        calculator.setOperation(.division)
         calculator.appendDigit(.two)
         calculator.calculateResult()
         
