@@ -16,5 +16,8 @@ extension Color {
     /// Button foregrounds
     static let topButtonText = Color.black
     static let otherButtonText = Color.white
+    
+    /// Display text color
+    static let displayTextColor = Color.white
 }
 

@@ -46,11 +46,11 @@ extension CalculatorView {
     private var displayText: some View {
         Text(viewModel.displayText)
             .padding()
-            .foregroundColor(.white)
+            .foregroundColor(Color.displayTextColor)
             .frame(maxWidth: .infinity, alignment: .trailing)
             .font(.system(size: Constants.displayTextSize, weight: .light))
-            .lineLimit(1)               // only 1 line
-            .minimumScaleFactor(0.2)    // shrink when displaying large numbers
+            .lineLimit(Constants.maxLines)              // max lines for display text
+            .minimumScaleFactor(Constants.minScale)     // shrink when displaying large numbers
     }
     
     /// Calculator buttons
