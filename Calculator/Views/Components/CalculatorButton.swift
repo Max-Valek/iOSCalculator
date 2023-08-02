@@ -27,30 +27,11 @@ extension CalculatorView {
                 viewModel.performAction(for: buttonType)
             }
                 .buttonStyle(CalculatorButtonStyle(
-                    size: getButtonSize(),
-                    backgroundColor: getBackgroundColor(),
-                    foregroundColor: getForegroundColor(),
+                    size: viewModel.getButtonSize(),
+                    backgroundColor: viewModel.getBackgroundColor(for: buttonType),
+                    foregroundColor: viewModel.getForegroundColor(for: buttonType),
                     isWide: buttonType == .digit(.zero))
                 )
-        }
-        
-        // MARK: - FUNCTIONS
-        
-        /// Calculate and return the size for a button using screen bounds.
-        private func getButtonSize() -> CGFloat {
-            let screenWidth = UIScreen.main.bounds.width
-            let spacingCount = Constants.buttonsPerRow + 1
-            return (screenWidth - (spacingCount * Constants.padding)) / Constants.buttonsPerRow
-        }
-        
-        /// Get a button's background color. (foreground color if button highlighted)
-        private func getBackgroundColor() -> Color {
-            return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.foregroundColor : buttonType.backgroundColor
-        }
-        
-        /// Get a button's foreground color. (background color if button highlighted)
-        private func getForegroundColor() -> Color {
-            return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
         }
     }
 }

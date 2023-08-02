@@ -7,11 +7,11 @@
 
 import Foundation
 
-/// Enum for digit buttons (raw values : 0-9)
-enum Digit: Int, CaseIterable, CustomStringConvertible {
+/// Enumeration representing digit buttons (0-9)
+enum DigitButton: Int, CaseIterable, CustomStringConvertible {
     case zero, one, two, three, four, five, six, seven, eight, nine
     
-    /// Button text (CustomStringConvertible)
+    /// The button's text label (rawValue as a string).
     var description: String {
         "\(rawValue)"
     }

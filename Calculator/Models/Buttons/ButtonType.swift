@@ -8,40 +8,33 @@
 import Foundation
 import SwiftUI
 
-/// ButtonType enum
+// MARK: - BUTTON TYPE
+
+/// Enumeration representing different types of calculator buttons.
 enum ButtonType: Hashable, CustomStringConvertible {
-    case digit(_ digit: Digit)
-    case operation(_ operation: ArithmeticOperation)
-    case negative
-    case percent
-    case decimal
-    case equals
-    case allClear
-    case clear
     
-    /// Button text label
+    /// Represents digit buttons with associated digit values
+    case digit(_ digit: DigitButton)
+    /// Represents arithmetic operation buttons with associated arithmetic operations.
+    case operation(_ operation: OperationButton)
+    /// ±, %, ., =, AC, and C buttons
+    case negative, percent, decimal, equals, allClear, clear
+    
+    /// The button's text label.
     var description: String {
         switch self {
-        case .digit(let digit):
-            return digit.description
-        case .operation(let operation):
-            return operation.description
-        case .negative:
-            return "±"
-        case .percent:
-            return "%"
-        case .decimal:
-            return "."
-        case .equals:
-            return "="
-        case .allClear:
-            return "AC"
-        case .clear:
-            return "C"
+        case .digit(let digit): return digit.description
+        case .operation(let operation): return operation.description
+        case .negative: return "±"
+        case .percent: return "%"
+        case .decimal: return "."
+        case .equals: return "="
+        case .allClear: return "AC"
+        case .clear: return "C"
         }
     }
     
-    /// Button background color
+    /// The button's background color.
     var backgroundColor: Color {
         switch self {
         case .allClear, .clear, .negative, .percent:
@@ -53,7 +46,7 @@ enum ButtonType: Hashable, CustomStringConvertible {
         }
     }
     
-    /// Button text color
+    /// The button's text color.
     var foregroundColor: Color {
         switch self {
         case .allClear, .clear, .negative, .percent:

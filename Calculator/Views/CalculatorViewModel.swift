@@ -5,8 +5,7 @@
 //  Created by Max Valek on 8/1/23.
 //
 
-import Foundation
-import Combine
+import SwiftUI
 
 /// ViewModel only accessed in CalculatorView, put it in an extension.
 extension CalculatorView {
@@ -33,6 +32,13 @@ extension CalculatorView {
                 [.digit(.one), .digit(.two), .digit(.three), .operation(.addition)],
                 [.digit(.zero), .decimal, .equals]
             ]
+        }
+        
+        /// Size of calculator buttons
+        var buttonSize: CGFloat = 0.0
+        
+        init() {
+            self.buttonSize = getButtonSize()
         }
         
         // MARK: - ACTIONS
@@ -65,6 +71,24 @@ extension CalculatorView {
         func buttonIsHighlighted(buttonType: ButtonType) -> Bool {
             guard case .operation(let operation) = buttonType else { return false }
             return calculator.operationIsHighlighted(operation)
+        }
+        
+        // MARK: - CALCULATORBUTTON FUNCTIONS
+        
+        func getButtonSize() -> CGFloat {
+            let screenWidth = UIScreen.main.bounds.width
+            let spacingCount = Constants.buttonsPerRow + 1
+            return (screenWidth - (spacingCount * Constants.padding)) / Constants.buttonsPerRow
+        }
+        
+        /// Get a button's background color. (foreground color if button highlighted)
+        func getBackgroundColor(for buttonType: ButtonType) -> Color {
+            return buttonIsHighlighted(buttonType: buttonType) ? buttonType.foregroundColor : buttonType.backgroundColor
+        }
+        
+        /// Get a button's foreground color. (background color if button highlighted)
+        func getForegroundColor(for buttonType: ButtonType) -> Color {
+            return buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
         }
     }
 }

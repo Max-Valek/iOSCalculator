@@ -14,7 +14,7 @@ private extension Calculator {
         /// A decimal value representing the current number in the expression.
         var number: Decimal
         /// Enum value of type ArithmeticOperation indicating the arithmetic operation to be performed
-        var operation: ArithmeticOperation
+        var operation: OperationButton
         
         /// Evaluates the stored arithmetic expression using the provided secondNumber (current number in the calculator)
         func evaluate(with secondNumber: Decimal) -> Decimal {
@@ -74,12 +74,12 @@ struct Calculator {
     
     // MARK: - PROPERTIES ACCESSIBLE TO VIEWMODEL
     
-    /// Number string to display (accessed by view model)
+    /// String representation of the number to display
     var displayText: String {
         return formattedNumberString(forNumber: displayedNumber, withCommas: true)
     }
     
-    /// Whether to show all clear or clear button (accessed by view model)
+    /// Whether to show all clear or clear button
     var showAllClear: Bool {
         currentNumber == nil && expression == nil && result == nil || clearPressed
     }
@@ -88,7 +88,7 @@ struct Calculator {
     
     /// Add a digit to the number being inputted.
     /// - Parameter digit: the digit button pressed.
-    mutating func appendDigit(_ digit: Digit) {
+    mutating func appendDigit(_ digit: DigitButton) {
         if containsDecimal && digit == .zero {
             zerosTrailingDecimal += 1
         } else if canAddDigit(digit) {
@@ -99,7 +99,7 @@ struct Calculator {
     
     /// Create an ArithmeticExpression and set expression property when an operation is pressed.
     /// - Parameter operation: the operation button pressed
-    mutating func setOperation(_ operation: ArithmeticOperation) {
+    mutating func setOperation(_ operation: OperationButton) {
         guard var number = currentNumber ?? result else { return }
         if let existingExpression = expression {
             number = existingExpression.evaluate(with: number)
@@ -197,12 +197,12 @@ struct Calculator {
     
     /// Check if the digit can be added.
     /// TRUE if number isnt nil OR digit isn't zero.
-    private func canAddDigit(_ digit: Digit) -> Bool {
+    private func canAddDigit(_ digit: DigitButton) -> Bool {
         return displayedNumber != nil || digit != .zero
     }
     
     /// An operation button is highlighted if it was just pressed
-    func operationIsHighlighted(_ operation: ArithmeticOperation) -> Bool {
+    func operationIsHighlighted(_ operation: OperationButton) -> Bool {
         return expression?.operation == operation && currentNumber == nil
     }
 }
