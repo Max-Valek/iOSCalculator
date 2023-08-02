@@ -223,12 +223,30 @@ final class CalculatorTests: XCTestCase {
     
     /// Test multiplication operation
     func test_multiplication() {
-        calculator.appendDigit(.five)
-        calculator.setOperation(.multiplication)
-        calculator.appendDigit(.two)
-        calculator.calculateResult()
+        /// Test simplest multiplication (2 * 1)
+        calculator.appendDigit(.two)                    /// "2"
+        calculator.setOperation(.multiplication)        /// "0", operation("2", "x")
+        calculator.appendDigit(.one)                    /// "1", operation("2", "x")
+        calculator.calculateResult()                    /// "2", 2 * 1 = 2
+        XCTAssertEqual(calculator.displayText, "2")
         
-        XCTAssertEqual(calculator.displayText, "10")
+        /// Test multiplying decimals (2.5 * 4.5)
+        calculator.reset()                              /// "0"
+        calculator.appendDigit(.two)                    /// "2"
+        calculator.addDecimal()                         /// "2."
+        calculator.appendDigit(.five)                   /// "2.5"
+        calculator.setOperation(.multiplication)        /// "0", operation("2.5", "x")
+        calculator.appendDigit(.four)                   /// "4", operation("2.5", "x")
+        calculator.addDecimal()                         /// "4.", operation("2.5", "x")
+        calculator.appendDigit(.five)                   /// "4.5", operation("2.5", "x")
+        calculator.calculateResult()                    /// "11.25", 2.5 x 4.5 = 11.25
+        XCTAssertEqual(calculator.displayText, "11.25")
+        
+        /// Test consecutive multiplications (multiply the result set above by 3)
+        calculator.setOperation(.multiplication)        /// "0", operation("11.25", "x")
+        calculator.appendDigit(.three)                  /// "3", operation("11.25", "x")
+        calculator.calculateResult()                    /// "33.75", 11.25 x 3 = 33.75
+        XCTAssertEqual(calculator.displayText, "33.75")
     }
     
     /// Test division operation
