@@ -103,6 +103,7 @@ final class CalculatorTests: XCTestCase {
 
     // MARK: - Operations
     
+    /// Test addition operation
     func test_addition() {
         calculator.appendDigit(.one)
         calculator.setOperation(.addition)
@@ -112,6 +113,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "3")
     }
     
+    /// Test subtraction operation
     func test_subtraction() {
         calculator.appendDigit(.five)
         calculator.setOperation(.subtraction)
@@ -121,6 +123,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "3")
     }
     
+    /// Test multiplication operation
     func test_multiplication() {
         calculator.appendDigit(.five)
         calculator.setOperation(.multiplication)
@@ -130,6 +133,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "10")
     }
     
+    /// Test division operation
     func test_division() {
         calculator.appendDigit(.six)
         calculator.setOperation(.division)
