@@ -7,15 +7,28 @@
 
 import SwiftUI
 
+/// Color extension for app theme.
 extension Color {
-    /// Button backgrounds
+    
+    // MARK: App
+    
+    static let background = Color.black
+    
+    // MARK: BUTTONS
+    
+    /// backgrounds
     static let topButtonBg = Color(.lightGray)
     static let rightButtonBg = Color.orange
     static let numberButtonBg = Color.secondary
     
-    /// Button foregrounds
+    /// foregrounds
     static let topButtonText = Color.black
     static let otherButtonText = Color.white
+    
+    /// Button overlay when pressed
+    static let buttonPressedOverlay = Color(white: 1.0, opacity: 0.2)
+    
+    // MARK: DISPLAY TEXT
     
     /// Display text color
     static let displayTextColor = Color.white

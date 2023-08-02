@@ -27,8 +27,9 @@ struct CalculatorButtonStyle: ButtonStyle {
             .background(backgroundColor)
             .foregroundColor(foregroundColor)
             .overlay {
+                /// overlay button with buttonPressedOverlay color when currently being pressed.
                 if configuration.isPressed {
-                    Color(white: 1.0, opacity: 0.2)
+                    Color.buttonPressedOverlay
                 }
             }
             .clipShape(Capsule())

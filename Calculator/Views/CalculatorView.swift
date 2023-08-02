@@ -26,7 +26,7 @@ struct CalculatorView: View {
             buttonPad
         }
         .padding(Constants.padding)
-        .background(Color.black)
+        .background(Color.background)
     }
 }
 
