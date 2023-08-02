@@ -32,7 +32,7 @@ final class CalculatorTests: XCTestCase {
         calculator.appendDigit(.two)
         calculator.appendDigit(.three)
         
-        XCTAssertEqual(calculator.displayText, "123")
+        XCTAssertEqual(calculator.displayText, "123", "Appending digits 1, 2, and 3 should be 123")
     }
     
     /// Test negating the number
