@@ -19,7 +19,7 @@ enum ButtonType: Hashable, CustomStringConvertible {
     case allClear
     case clear
     
-    /// Button text
+    /// Button text label
     var description: String {
         switch self {
         case .digit(let digit):

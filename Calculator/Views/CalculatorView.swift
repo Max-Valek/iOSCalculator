@@ -11,6 +11,7 @@ import SwiftUI
 
 struct CalculatorView: View {
     
+    /// View model instance passed in from environment
     @EnvironmentObject private var viewModel: ViewModel
     
     var body: some View {
@@ -49,7 +50,7 @@ extension CalculatorView {
     /// Calculator buttons
     private var buttonPad: some View {
         VStack(spacing: Constants.padding) {
-            ForEach(viewModel.buttonTypes, id: \.self) { row in
+            ForEach(viewModel.buttons, id: \.self) { row in
                 HStack(spacing: Constants.padding) {
                     ForEach(row, id: \.self) { buttonType in
                         CalculatorButton(buttonType: buttonType)

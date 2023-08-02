@@ -14,6 +14,7 @@ extension CalculatorView {
         
         // MARK: - PROPERTIES
         
+        /// Instance of calculator model/API
         @Published private var calculator = Calculator()
         
         /// Number displayed above buttons
@@ -21,8 +22,8 @@ extension CalculatorView {
             return calculator.displayText
         }
         
-        /// Calculator buttons with the correct order
-        var buttonTypes: [[ButtonType]] {
+        /// Calculator buttons matrix
+        var buttons: [[ButtonType]] {
             let clearType: ButtonType = calculator.showAllClear ? .allClear : .clear
             return [
                 [clearType, .negative, .percent, .operation(.division)],
@@ -59,8 +60,8 @@ extension CalculatorView {
         
         // MARK: - HELPERS
         
-        /// Operation button is highlighted if user just pressed it
-        func buttonTypeIsHighlighted(buttonType: ButtonType) -> Bool {
+        /// Return true if the provided operation button should be highlighted (user just pressed it)
+        func buttonIsHighlighted(buttonType: ButtonType) -> Bool {
             guard case .operation(let operation) = buttonType else { return false }
             return calculator.operationIsHighlighted(operation)
         }

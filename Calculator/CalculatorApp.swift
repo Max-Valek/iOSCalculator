@@ -12,8 +12,7 @@ struct CalculatorApp: App {
     var body: some Scene {
         WindowGroup {
             CalculatorView()
-                // pass instance of ViewModel as environment object
-                .environmentObject(CalculatorView.ViewModel())
+                .environmentObject(CalculatorView.ViewModel())      // pass instance of ViewModel as environment object
         }
     }
 }

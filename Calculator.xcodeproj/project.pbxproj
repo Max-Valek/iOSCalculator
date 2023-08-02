@@ -90,9 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				9D3D34E12A798E28000AE585 /* Calculator.swift */,
-				9D3D34D22A797D4A000AE585 /* ButtonType.swift */,
-				9D3D34D52A797E4E000AE585 /* Digit.swift */,
-				9D3D34D72A797E5C000AE585 /* ArithmeticOperation.swift */,
+				9D3D34E52A79DF7F000AE585 /* Buttons */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,6 +119,16 @@
 				9D3D34DD2A79868F000AE585 /* CalculatorButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		9D3D34E52A79DF7F000AE585 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9D3D34D22A797D4A000AE585 /* ButtonType.swift */,
+				9D3D34D52A797E4E000AE585 /* Digit.swift */,
+				9D3D34D72A797E5C000AE585 /* ArithmeticOperation.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

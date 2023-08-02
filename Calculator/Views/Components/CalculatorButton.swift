@@ -12,7 +12,9 @@ extension CalculatorView {
     
     struct CalculatorButton: View {
         
+        /// The ButtonType enum case passed in
         let buttonType: ButtonType
+        /// View model instance passed into environment
         @EnvironmentObject private var viewModel: ViewModel
         
         var body: some View {
@@ -27,6 +29,7 @@ extension CalculatorView {
                 )
         }
         
+        /// Calculate and return the size for a button using screen bounds.
         private func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
             let buttonCount: CGFloat = 4.0
@@ -34,12 +37,14 @@ extension CalculatorView {
             return (screenWidth - (spacingCount * Constants.padding)) / buttonCount
         }
         
+        /// Get a button's background color.
         private func getBackgroundColor() -> Color {
-            return viewModel.buttonTypeIsHighlighted(buttonType: buttonType) ? buttonType.foregroundColor : buttonType.backgroundColor
+            return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.foregroundColor : buttonType.backgroundColor
         }
         
+        /// Get a button's foreground color.
         private func getForegroundColor() -> Color {
-            return viewModel.buttonTypeIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
+            return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
         }
     }
 }

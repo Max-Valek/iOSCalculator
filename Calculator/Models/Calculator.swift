@@ -102,7 +102,7 @@ struct Calculator {
         }
     }
     
-    /// Create an ArithmeticExpression when an operation is pressed
+    /// Create an ArithmeticExpression and set expression property when an operation is pressed.
     /// - Parameter operation: the operation button pressed
     mutating func setOperation(_ operation: ArithmeticOperation) {
         guard var number = currentNumber ?? result else { return }
