@@ -36,98 +36,100 @@ struct Calculator {
     // MARK: - PROPERTIES
     
     /// The current number being entered by the user. (resets several auxiliary properties when set)
-    private var newNumber: Decimal? {
+    private var currentNumber: Decimal? {
         didSet {
-            guard newNumber != nil else { return }
-            carryingNegative = false
-            carryingDecimal = false
-            carryingZeroCount = 0
-            pressedClear = false
+            guard currentNumber != nil else { return }
+            isNegative = false
+            decimalPressed = false
+            zerosTrailingDecimal = 0
+            clearPressed = false
         }
     }
+    
     /// The current arithmetic expression being built by the calculator
     private var expression: ArithmeticExpression?
     /// The result of the latest arithmetic expression evaluation
     private var result: Decimal?
     
     /// Whether the current number should be treated as a negative
-    private var carryingNegative: Bool = false
-    /// Whether the current number contains a decimal point (to avoid multiple)
-    private var carryingDecimal: Bool = false
-    /// The count of consecutive 0s that follow the decimal point (for handling trailing 0s)
-    private var carryingZeroCount: Int = 0
+    private var isNegative: Bool = false
     
-    /// Whether the clear button has been pressed.
-    private var pressedClear: Bool = false
+    /// Whether decimal has been pressed since newNumber was last updated
+    private var decimalPressed: Bool = false
+    /// Consecutive 0s pressed directly after decimal point pressed
+    private var zerosTrailingDecimal: Int = 0
+    
+    /// Whether the clear button was pressed.
+    private var clearPressed: Bool = false
     
     // MARK: - COMPUTED PROPERTIES
     
     /// Number currently being displayed, as a string
     var displayText: String {
-        return getNumberString(forNumber: number, withCommas: true)
+        return formattedNumberString(forNumber: displayedNumber, withCommas: true)
     }
     
     /// Whether to show all clear or clear button
     var showAllClear: Bool {
-        newNumber == nil && expression == nil && result == nil || pressedClear
+        currentNumber == nil && expression == nil && result == nil || clearPressed
     }
     
-    /// The current number used for calculation and display.
-    /// If the user is currently entering a new number or a decimal point, it returns newNumber
-    /// Otherwise, it returns result if available, or the number from the active expression.
-    var number: Decimal? {
-        if pressedClear || carryingDecimal {
-            return newNumber
+    /// The current number to display (converted to string and used by view model)
+    private var displayedNumber: Decimal? {
+        if clearPressed || decimalPressed {
+            return currentNumber
         }
-        return newNumber ?? expression?.number ?? result
+        return currentNumber ?? expression?.number ?? result
     }
     
-    /// if the current number contains a decimal
+    /// Whether the current number contains a decimal
     private var containsDecimal: Bool {
-        return getNumberString(forNumber: number).contains(".")
+        return formattedNumberString(forNumber: displayedNumber).contains(".")
     }
     
     // MARK: - OPERATIONS
     
     /// Add a digit to newNumber
     /// - Parameter digit: the digit button pressed
-    mutating func setDigit(_ digit: Digit) {
+    mutating func appendDigit(_ digit: Digit) {
         if containsDecimal && digit == .zero {
-            carryingZeroCount += 1
+            zerosTrailingDecimal += 1
         } else if canAddDigit(digit) {
-            let numberString = getNumberString(forNumber: newNumber)
-            newNumber = Decimal(string: numberString.appending("\(digit.rawValue)"))
+            let numberString = formattedNumberString(forNumber: currentNumber)
+            currentNumber = Decimal(string: numberString.appending("\(digit.rawValue)"))
         }
     }
     
     /// Create an ArithmeticExpression when an operation is pressed
     /// - Parameter operation: the operation button pressed
     mutating func setOperation(_ operation: ArithmeticOperation) {
-        guard var number = newNumber ?? result else { return }
+        guard var number = currentNumber ?? result else { return }
         if let existingExpression = expression {
             number = existingExpression.evaluate(with: number)
         }
         expression = ArithmeticExpression(number: number, operation: operation)
-        newNumber = nil
+        currentNumber = nil
     }
     
-    /// Toggle between positive and negative
-    mutating func toggleSign() {
-        if let number = newNumber {
-            newNumber = -number
+    /// Toggle between positive and negative (± pressed)
+    mutating func negate() {
+        /// negate newNumber
+        if let number = currentNumber {
+            currentNumber = -number
             return
         }
+        /// negate result if no newNumber
         if let number = result {
             result = -number
             return
         }
-        carryingNegative.toggle()
+        isNegative.toggle()
     }
     
-    /// Get the number as a percentage
-    mutating func setPercent() {
-        if let number = newNumber {
-            newNumber = number / 100
+    /// Convert the number to percentage of 100 (% pressed)
+    mutating func convertToPercentage() {
+        if let number = currentNumber {
+            currentNumber = number / 100
             return
         }
         if let number = result {
@@ -136,60 +138,61 @@ struct Calculator {
         }
     }
     
-    /// Add a decimal
-    mutating func setDecimal() {
+    /// Add a decimal if number doesn't already contain one (decimal pressed)
+    mutating func addDecimal() {
+        /// if inputted number already has a decimal, return
         if containsDecimal { return }
-        carryingDecimal = true
+        decimalPressed = true
     }
     
-    /// Evaluate the expression
-    mutating func evaluate() {
-        guard let number = newNumber, let expressionToEvaluate = expression else { return }
+    /// Evaluate the expression (= pressed)
+    mutating func calculateResult() {
+        /// make sure a previous expression exists and user has inputted another number
+        guard
+            let number = currentNumber,
+            let expressionToEvaluate = expression
+        else { return }
+        /// evaluate the expression and store the result in result property
         result = expressionToEvaluate.evaluate(with: number)
+        /// reset expression and newNumber properties
         expression = nil
-        newNumber = nil
+        currentNumber = nil
     }
     
-    /// All clear pressed (reset everything)
-    mutating func allClear() {
-        newNumber = nil
+    /// Reset to initial state (all clear pressed)
+    mutating func reset() {
+        currentNumber = nil
         expression = nil
         result = nil
-        carryingNegative = false
-        carryingDecimal = false
-        carryingZeroCount = 0
+        isNegative = false
+        decimalPressed = false
+        zerosTrailingDecimal = 0
     }
     
-    /// Clear pressed (reset the last entry)
-    mutating func clear() {
-        newNumber = nil
-        carryingNegative = false
-        carryingDecimal = false
-        carryingZeroCount = 0
-        pressedClear = true
+    /// Clear the last entry (clear pressed)
+    mutating func clearLastEntry() {
+        currentNumber = nil
+        isNegative = false
+        decimalPressed = false
+        zerosTrailingDecimal = 0
+        clearPressed = true
     }
     
     // MARK: - HELPERS
     
-    /// An operation button is highlighted if it was just pressed
-    func operationIsHighlighted(_ operation: ArithmeticOperation) -> Bool {
-        return expression?.operation == operation && newNumber == nil
-    }
-    
     /// Get number as a string
-    private func getNumberString(forNumber number: Decimal?, withCommas: Bool = false) -> String {
+    private func formattedNumberString(forNumber number: Decimal?, withCommas: Bool = false) -> String {
         var numberString = (withCommas ? number?.formatted(.number) : number.map(String.init)) ?? "0"
-        
-        if carryingNegative {
+        /// negate if isNegative set to true
+        if isNegative {
             numberString.insert("-", at: numberString.startIndex)
         }
-        
-        if carryingDecimal {
+        /// if decimal pressed since currentNumber last updated
+        if decimalPressed {
             numberString.insert(".", at: numberString.endIndex)
         }
-        
-        if carryingZeroCount > 0 {
-            numberString.append(String(repeating: "0", count: carryingZeroCount))
+        if zerosTrailingDecimal > 0 {
+            numberString.append(String(repeating: "0", count: zerosTrailingDecimal))
         }
         
         return numberString
@@ -197,6 +200,11 @@ struct Calculator {
     
     /// Check if the digit can be added
     private func canAddDigit(_ digit: Digit) -> Bool {
-        return number != nil || digit != .zero
+        return displayedNumber != nil || digit != .zero
+    }
+    
+    /// An operation button is highlighted if it was just pressed
+    func operationIsHighlighted(_ operation: ArithmeticOperation) -> Bool {
+        return expression?.operation == operation && currentNumber == nil
     }
 }

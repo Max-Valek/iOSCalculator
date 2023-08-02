@@ -39,21 +39,21 @@ extension CalculatorView {
         func performAction(for buttonType: ButtonType) {
             switch buttonType {
             case .digit(let digit):
-                calculator.setDigit(digit)
+                calculator.appendDigit(digit)
             case .operation(let operation):
                 calculator.setOperation(operation)
             case .negative:
-                calculator.toggleSign()
+                calculator.negate()
             case .percent:
-                calculator.setPercent()
+                calculator.convertToPercentage()
             case .decimal:
-                calculator.setDecimal()
+                calculator.addDecimal()
             case .equals:
-                calculator.evaluate()
+                calculator.calculateResult()
             case .allClear:
-                calculator.allClear()
+                calculator.reset()
             case .clear:
-                calculator.clear()
+                calculator.clearLastEntry()
             }
         }
         
