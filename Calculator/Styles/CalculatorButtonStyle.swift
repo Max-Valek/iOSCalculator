@@ -17,7 +17,7 @@ struct CalculatorButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 32, weight: .medium))
+            .font(.system(size: Constants.buttonLabelSize, weight: .medium))
             .frame(width: size, height: size)
             .frame(maxWidth: isWide ? .infinity : size, alignment: .leading)
             .background(backgroundColor)

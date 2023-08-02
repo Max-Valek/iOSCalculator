@@ -45,7 +45,7 @@ extension CalculatorView {
             .padding()
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .font(.system(size: 88, weight: .light))
+            .font(.system(size: Constants.displayTextSize, weight: .light))
             .lineLimit(1)               // only 1 line
             .minimumScaleFactor(0.2)    // shrink when displaying large numbers
     }

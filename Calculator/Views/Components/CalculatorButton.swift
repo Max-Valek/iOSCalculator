@@ -39,9 +39,8 @@ extension CalculatorView {
         /// Calculate and return the size for a button using screen bounds.
         private func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
-            let buttonCount: CGFloat = 4.0
-            let spacingCount = buttonCount + 1
-            return (screenWidth - (spacingCount * Constants.padding)) / buttonCount
+            let spacingCount = Constants.buttonsPerRow + 1
+            return (screenWidth - (spacingCount * Constants.padding)) / Constants.buttonsPerRow
         }
         
         /// Get a button's background color. (foreground color if button highlighted)
