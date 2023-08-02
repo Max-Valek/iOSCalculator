@@ -48,6 +48,7 @@ struct Calculator {
     
     /// The current arithmetic expression being built by the calculator
     private var expression: ArithmeticExpression?
+    
     /// The result of the latest arithmetic expression evaluation
     private var result: Decimal?
     
@@ -56,6 +57,7 @@ struct Calculator {
     
     /// Whether decimal has been pressed since newNumber was last updated
     private var decimalPressed: Bool = false
+    
     /// Consecutive 0s pressed directly after decimal point pressed
     private var zerosTrailingDecimal: Int = 0
     
@@ -64,12 +66,12 @@ struct Calculator {
     
     // MARK: - COMPUTED PROPERTIES
     
-    /// Number currently being displayed, as a string
+    /// Number to display (accessed by view model)
     var displayText: String {
         return formattedNumberString(forNumber: displayedNumber, withCommas: true)
     }
     
-    /// Whether to show all clear or clear button
+    /// Whether to show all clear or clear button (accessed by view model)
     var showAllClear: Bool {
         currentNumber == nil && expression == nil && result == nil || clearPressed
     }
@@ -89,8 +91,8 @@ struct Calculator {
     
     // MARK: - OPERATIONS
     
-    /// Add a digit to newNumber
-    /// - Parameter digit: the digit button pressed
+    /// Add a digit to the number being inputted.
+    /// - Parameter digit: the digit button pressed.
     mutating func appendDigit(_ digit: Digit) {
         if containsDecimal && digit == .zero {
             zerosTrailingDecimal += 1
@@ -145,7 +147,7 @@ struct Calculator {
         decimalPressed = true
     }
     
-    /// Evaluate the expression (= pressed)
+    /// Evaluate the previously created expression (= pressed)
     mutating func calculateResult() {
         /// make sure a previous expression exists and user has inputted another number
         guard
@@ -159,7 +161,7 @@ struct Calculator {
         currentNumber = nil
     }
     
-    /// Reset to initial state (all clear pressed)
+    /// Reset the calculator to its initial state (all clear pressed)
     mutating func reset() {
         currentNumber = nil
         expression = nil
@@ -180,7 +182,7 @@ struct Calculator {
     
     // MARK: - HELPERS
     
-    /// Get number as a string
+    /// Get the number as a formatted string.
     private func formattedNumberString(forNumber number: Decimal?, withCommas: Bool = false) -> String {
         var numberString = (withCommas ? number?.formatted(.number) : number.map(String.init)) ?? "0"
         /// negate if isNegative set to true
