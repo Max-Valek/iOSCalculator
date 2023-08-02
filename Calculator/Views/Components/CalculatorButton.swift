@@ -7,15 +7,20 @@
 
 import SwiftUI
 
-/// CalculatorButton will not be used outside CalculatorView, put it in an extension.
+/// Only used in CalculatorView, put it in an extension.
 extension CalculatorView {
     
+    /// View for a calculator button
     struct CalculatorButton: View {
+        
+        // MARK: - PROPERTIES
         
         /// The ButtonType enum case passed in
         let buttonType: ButtonType
         /// View model instance passed into environment
         @EnvironmentObject private var viewModel: ViewModel
+        
+        // MARK: - BODY
         
         var body: some View {
             Button(buttonType.description) {
@@ -29,6 +34,8 @@ extension CalculatorView {
                 )
         }
         
+        // MARK: - FUNCTIONS
+        
         /// Calculate and return the size for a button using screen bounds.
         private func getButtonSize() -> CGFloat {
             let screenWidth = UIScreen.main.bounds.width
@@ -37,12 +44,12 @@ extension CalculatorView {
             return (screenWidth - (spacingCount * Constants.padding)) / buttonCount
         }
         
-        /// Get a button's background color.
+        /// Get a button's background color. (foreground color if button highlighted)
         private func getBackgroundColor() -> Color {
             return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.foregroundColor : buttonType.backgroundColor
         }
         
-        /// Get a button's foreground color.
+        /// Get a button's foreground color. (background color if button highlighted)
         private func getForegroundColor() -> Color {
             return viewModel.buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
         }

@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-// MARK: - BODY
-
 struct CalculatorView: View {
+    
+    // MARK: - PROPERTIES
     
     /// View model instance passed in from environment
     @EnvironmentObject private var viewModel: ViewModel
+    
+    // MARK: - BODY
     
     var body: some View {
         VStack {

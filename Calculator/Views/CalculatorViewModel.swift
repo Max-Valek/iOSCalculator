@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// ViewModel only accessed in CalculatorView, put it in an extension.
 extension CalculatorView {
     
     final class ViewModel: ObservableObject {
