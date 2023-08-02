@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreGraphics
+import CoreGraphics /// (CGFloat)
 
 /// Constant values for the app
 struct Constants {

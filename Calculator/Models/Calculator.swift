@@ -7,10 +7,8 @@
 
 import Foundation
 
-/// Serves as the model and API for the calculator application. It provides functionality to
-/// perform arithmetic operations, handle user input, and display the current state of the calculator.
-struct Calculator {
-    
+/// Calculator extension containing ArithmeticExpression struct.
+private extension Calculator {
     /// Private helper struct used to store single arithmetic expressions during calculator operation.
     private struct ArithmeticExpression: Equatable {
         /// A decimal value representing the current number in the expression.
@@ -32,8 +30,13 @@ struct Calculator {
             }
         }
     }
+}
+
+/// Serves as the model and API for the calculator application. It provides functionality to
+/// perform arithmetic operations, handle user input, and display the current state of the calculator.
+struct Calculator {
     
-    // MARK: - PROPERTIES
+    // MARK: - PRIVATE PROPERTIES
     
     /// The current number being entered by the user. (resets several auxiliary properties when set)
     private var currentNumber: Decimal? {
@@ -45,37 +48,18 @@ struct Calculator {
             clearPressed = false
         }
     }
-    
     /// The current arithmetic expression being built by the calculator
     private var expression: ArithmeticExpression?
-    
     /// The result of the latest arithmetic expression evaluation
     private var result: Decimal?
-    
     /// Whether the current number should be treated as a negative
     private var isNegative: Bool = false
-    
     /// Whether decimal has been pressed since newNumber was last updated
     private var decimalPressed: Bool = false
-    
     /// Consecutive 0s pressed directly after decimal point pressed
     private var zerosTrailingDecimal: Int = 0
-    
     /// Whether the clear button was pressed.
     private var clearPressed: Bool = false
-    
-    // MARK: - COMPUTED PROPERTIES
-    
-    /// Number to display (accessed by view model)
-    var displayText: String {
-        return formattedNumberString(forNumber: displayedNumber, withCommas: true)
-    }
-    
-    /// Whether to show all clear or clear button (accessed by view model)
-    var showAllClear: Bool {
-        currentNumber == nil && expression == nil && result == nil || clearPressed
-    }
-    
     /// The current number to display (converted to string and used by view model)
     private var displayedNumber: Decimal? {
         if clearPressed || decimalPressed {
@@ -83,10 +67,21 @@ struct Calculator {
         }
         return currentNumber ?? expression?.number ?? result
     }
-    
     /// Whether the current number contains a decimal
     private var containsDecimal: Bool {
         return formattedNumberString(forNumber: displayedNumber).contains(".")
+    }
+    
+    // MARK: - PROPERTIES ACCESSIBLE TO VIEWMODEL
+    
+    /// Number string to display (accessed by view model)
+    var displayText: String {
+        return formattedNumberString(forNumber: displayedNumber, withCommas: true)
+    }
+    
+    /// Whether to show all clear or clear button (accessed by view model)
+    var showAllClear: Bool {
+        currentNumber == nil && expression == nil && result == nil || clearPressed
     }
     
     // MARK: - OPERATIONS
@@ -200,7 +195,8 @@ struct Calculator {
         return numberString
     }
     
-    /// Check if the digit can be added
+    /// Check if the digit can be added.
+    /// TRUE if number isnt nil OR digit isn't zero.
     private func canAddDigit(_ digit: Digit) -> Bool {
         return displayedNumber != nil || digit != .zero
     }
