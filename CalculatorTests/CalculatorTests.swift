@@ -31,97 +31,130 @@ final class CalculatorTests: XCTestCase {
     
     /// Test appending digits to the number when digit button pressed.
     func test_appending_digits() {
-        calculator.appendDigit(.one)
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
+        /// Make sure simple append works
+        calculator.appendDigit(.one)        /// "1"
+        calculator.appendDigit(.two)        /// "12"
+        calculator.appendDigit(.three)      /// "123"
+        XCTAssertEqual(calculator.displayText, "123", "Simple append incorrect.")
         
-        XCTAssertEqual(calculator.displayText, "123")
-        
-        calculator.appendDigit(.zero)
-        calculator.addDecimal()
-        calculator.appendDigit(.nine)
-        
-        XCTAssertEqual(calculator.displayText, "1,230.9")
+        /// Make sure decimals are handle correctly
+        calculator.appendDigit(.zero)       /// "1230"
+        calculator.addDecimal()             /// "1230."
+        calculator.appendDigit(.nine)       /// "1230.9"
+        XCTAssertEqual(calculator.displayText, "1,230.9", "Appending with decimals not handled correctly.")
     }
     
-    /// Test negating the number
+    /// Test negating the number (toggling between positive and negative).
     func test_negate() {
-        calculator.appendDigit(.one)
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
-        calculator.negate()
-        
+        /// From positive to negative
+        calculator.appendDigit(.one)        /// "1"
+        calculator.appendDigit(.two)        /// "12"
+        calculator.appendDigit(.three)      /// "123"
+        calculator.negate()                 /// "-123"
         XCTAssertEqual(calculator.displayText, "-123")
         
-        calculator.appendDigit(.seven)
-        calculator.appendDigit(.five)
-        calculator.negate()
-        
+        /// From negative to positive
+        calculator.appendDigit(.seven)      /// "-1237"
+        calculator.appendDigit(.five)       /// "-12375"
+        calculator.negate()                 /// "12375"
         XCTAssertEqual(calculator.displayText, "12,375")
     }
     
     /// Test converting the number to a percentage
     func test_convert_to_percentage() {
-        calculator.appendDigit(.one)
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
-        calculator.appendDigit(.four)
-        calculator.appendDigit(.five)
-        calculator.appendDigit(.six)
-        calculator.appendDigit(.seven)
+        /// Convert a number to a percentage of 100 multiple times.
+        calculator.appendDigit(.one)        /// "1"
+        calculator.appendDigit(.two)        /// "12"
+        calculator.appendDigit(.three)      /// "123"
+        calculator.appendDigit(.four)       /// "1234"
+        calculator.appendDigit(.five)       /// "12345"
+        calculator.appendDigit(.six)        /// "123456"
+        calculator.appendDigit(.seven)      /// "1234567"
         
-        calculator.convertToPercentage()
+        calculator.convertToPercentage()    /// "12345.67"
         
         XCTAssertEqual(calculator.displayText, "12,345.67")
         
-        calculator.convertToPercentage()
+        calculator.convertToPercentage()    /// "123.4567"
         
         XCTAssertEqual(calculator.displayText, "123.4567")
         
-        calculator.convertToPercentage()
+        calculator.convertToPercentage()    /// "1.234567
         
         XCTAssertEqual(calculator.displayText, "1.234567")
     }
     
-    /// Test adding a decimal point
+    /// Test adding a decimal point.
     func test_add_decimal() {
-        calculator.appendDigit(.one)
-        calculator.addDecimal()
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
+        /// Test adding when not already in number
+        calculator.appendDigit(.one)        /// "1"
+        calculator.addDecimal()             /// "1."
+        calculator.appendDigit(.two)        /// "1.2"
+        calculator.appendDigit(.three)      /// "1.23"
         
         XCTAssertEqual(calculator.displayText, "1.23")
+        
+        calculator.addDecimal()             /// "1.23" don't add another decimal
+        
+        XCTAssertEqual(calculator.displayText, "1.23")
+        
+        calculator.addDecimal()             /// "1.23" don't add another decimal
+        calculator.appendDigit(.zero)       /// "1.230"
+        calculator.appendDigit(.zero)       /// "1.2300"
+        
+        XCTAssertEqual(calculator.displayText, "1.2300")
     }
     
     /// Test resetting the calculator (all clear)
     func test_reset() {
-        calculator.appendDigit(.one)
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
+        /// Test if displayText set back to 0 and showAllClear set to true after AC pressed.
+        /// note: other (private) properties updated, dont have access.
+        calculator.appendDigit(.one)        /// "1"
+        calculator.appendDigit(.two)        /// "12"
+        calculator.appendDigit(.three)      /// "123"
         
-        calculator.reset()
+        calculator.reset()                  /// "0"
         
         XCTAssertEqual(calculator.displayText, "0")
+        XCTAssertTrue(calculator.showAllClear)
     }
     
-    /// Test clearing the last entry (clear)
+    /// Test clearing the last entry (clear). Same as above with our current access.
     func test_clear_last_entry() {
-        calculator.appendDigit(.one)
-        calculator.appendDigit(.two)
-        calculator.appendDigit(.three)
+        /// Test if displayText set back to 0 and showAllClear set to true after AC pressed.
+        /// note: other (private) properties updated, dont have access.
+        calculator.appendDigit(.one)        /// "1"
+        calculator.appendDigit(.two)        /// "12"
+        calculator.appendDigit(.three)      /// "123"
         
-        calculator.clearLastEntry()
+        calculator.reset()                  /// "0"
         
         XCTAssertEqual(calculator.displayText, "0")
+        XCTAssertTrue(calculator.showAllClear)
     }
     
     /// Test the canAddDigit function
     func test_can_add_digit() {
+        /// Make sure 0s cant be appended to nil currentNumber.
         calculator.appendDigit(.zero)
         calculator.appendDigit(.zero)
         calculator.appendDigit(.zero)
         
         XCTAssertEqual(calculator.displayText, "0")
+        
+        /// Make sure adding above zeros doesn't break appendDigit function.
+        
+        calculator.appendDigit(.one)
+        
+        XCTAssertEqual(calculator.displayText, "1")
+        
+        /// Make sure adding a decimal works as expected.
+
+        calculator.addDecimal()
+        calculator.appendDigit(.zero)
+        calculator.appendDigit(.five)
+        
+        XCTAssertEqual(calculator.displayText, "1.05")
     }
 
     // MARK: - Operations
