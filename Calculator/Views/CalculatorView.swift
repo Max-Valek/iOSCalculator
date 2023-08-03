@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-/// Main view for the app.
 struct CalculatorView: View {
     
     // MARK: - PROPERTIES
@@ -20,10 +19,10 @@ struct CalculatorView: View {
     var body: some View {
         VStack {
             Spacer()
-            /// Number above buttons
-            displayText
-            /// Grid of calculator buttons
-            buttonPad
+            
+            displayText     /// Number above buttons
+            
+            buttonPad       /// Grid of calculator buttons
         }
         .padding(Constants.padding)
         .background(Color.background)

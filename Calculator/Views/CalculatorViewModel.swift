@@ -7,24 +7,26 @@
 
 import SwiftUI
 
-/// ViewModel only accessed in CalculatorView, put it in an extension.
+/// ViewModel only accessed in CalculatorView, encapsulate it in an extension.
 extension CalculatorView {
     
     final class ViewModel: ObservableObject {
         
-        // MARK: - PROPERTIES
+        // MARK: - Properties
         
-        /// Instance of calculator model (API)
-        //@Published private var calculator = Calculator()
-        
+        /// Injected instance of calculator
         @Published private var calculator: CalculatorProtocol
         /// Size of calculator buttons
         var buttonSize: CGFloat = 0.0
+        
+        // MARK: - Initializer
         
         init(calculator: CalculatorProtocol = Calculator()) {
             self.calculator = calculator
             self.buttonSize = getButtonSize()
         }
+        
+        // MARK: - Computed Properties
         
         /// Stringified number to display above buttons.
         var displayText: String {
@@ -42,7 +44,7 @@ extension CalculatorView {
             ]
         }
         
-        // MARK: - ACTIONS
+        // MARK: - Actions
         
         /// Perform associated Calculator function when a button is pressed
         func performAction(for buttonType: ButtonType) {
@@ -66,7 +68,7 @@ extension CalculatorView {
             }
         }
         
-        // MARK: - CALCULATORBUTTON FUNCTIONS
+        // MARK: - CalculatorButton Helpers
         
         /// Calculate the size for one button using screen size
         func getButtonSize() -> CGFloat {
@@ -84,8 +86,6 @@ extension CalculatorView {
         func getForegroundColor(for buttonType: ButtonType) -> Color {
             return buttonIsHighlighted(buttonType: buttonType) ? buttonType.backgroundColor : buttonType.foregroundColor
         }
-        
-        // MARK: - HELPERS
         
         /// Return true if the provided operation button should be highlighted (user just pressed it)
         func buttonIsHighlighted(buttonType: ButtonType) -> Bool {
