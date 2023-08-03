@@ -27,7 +27,7 @@ final class CalculatorTests: XCTestCase {
         try super.tearDownWithError()
     }
     
-    // MARK: - Updating values when buttons pressed
+    // MARK: - BUTTONS PRESSED
     
     /// Test appending digits to the number when digit button pressed.
     func test_appending_digits() {
@@ -60,7 +60,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "12,375", "Negating negative number failed.")
     }
     
-    /// Test converting the number to a percentage
+    /// Test converting the number to a percentage (dividing it by 100)
     func test_convert_to_percentage() {
         /// Convert a number to a percentage of 100 multiple times.
         calculator.appendDigit(.one)        /// "1"
@@ -157,9 +157,9 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "1.05", "Adding decimal failed.")
     }
 
-    // MARK: - Operations
+    // MARK: - EVALUATING EXPRESSIONS
     
-    /// Test addition operation
+    /// Test addition
     func test_addition() {
         /// Test simplest addition (1 + 2)
         calculator.appendDigit(.one)            /// "1"
@@ -190,7 +190,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "20", "Consecutive additions (adding to result) failed.")
     }
     
-    /// Test subtraction operation
+    /// Test subtraction
     func test_subtraction() {
         /// Test simplest subtraction (2 - 1)
         calculator.appendDigit(.two)                /// "2"
@@ -221,7 +221,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "2", "Consecutive subtractions (subtracting from result) failed.")
     }
     
-    /// Test multiplication operation
+    /// Test multiplication
     func test_multiplication() {
         /// Test simplest multiplication (2 * 1)
         calculator.appendDigit(.two)                    /// "2"
@@ -249,7 +249,7 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(calculator.displayText, "33.75", "Consecutive multiplies (multiplying to result) failed.")
     }
     
-    /// Test division operation
+    /// Test division
     func test_division() {
         /// Test simplest division (4 / 2)
         calculator.appendDigit(.four)           /// "4"
