@@ -8,11 +8,18 @@
 import Foundation
 @testable import Calculator
 
+/// Calculator mock for testing
 class CalculatorMock: CalculatorProtocol {
     
-    var displayText: String = "200"
-    var showAllClear: Bool = true
+    var displayText: String
+    var showAllClear: Bool
     
+    init(displayText: String, showAllClear: Bool) {
+        self.displayText = displayText
+        self.showAllClear = showAllClear
+    }
+    
+    /// Keep track of whether the functions were called.
     var appendDigitCalled = false
     var setOperationCalled = false
     var negateCalled = false

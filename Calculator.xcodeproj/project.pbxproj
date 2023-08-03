@@ -25,6 +25,7 @@
 		9D9C7A822A7BF7A3004BCB8F /* OldCalc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C7A812A7BF7A3004BCB8F /* OldCalc.swift */; };
 		9D9C7A862A7C00CA004BCB8F /* ArithmeticExpressionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C7A852A7C00CA004BCB8F /* ArithmeticExpressionMock.swift */; };
 		9D9C7A882A7C02C9004BCB8F /* CalculatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C7A872A7C02C9004BCB8F /* CalculatorMock.swift */; };
+		9D9C7A8A2A7C07D8004BCB8F /* ArithmeticExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9C7A892A7C07D8004BCB8F /* ArithmeticExpressionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		9D9C7A812A7BF7A3004BCB8F /* OldCalc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldCalc.swift; sourceTree = "<group>"; };
 		9D9C7A852A7C00CA004BCB8F /* ArithmeticExpressionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticExpressionMock.swift; sourceTree = "<group>"; };
 		9D9C7A872A7C02C9004BCB8F /* CalculatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorMock.swift; sourceTree = "<group>"; };
+		9D9C7A892A7C07D8004BCB8F /* ArithmeticExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticExpressionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				9D14D1DA2A7AB1BD00AC82D8 /* CalculatorTests.swift */,
+				9D9C7A892A7C07D8004BCB8F /* ArithmeticExpressionTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				9D14D1DB2A7AB1BD00AC82D8 /* CalculatorTests.swift in Sources */,
 				9D9C7A862A7C00CA004BCB8F /* ArithmeticExpressionMock.swift in Sources */,
 				9D9C7A882A7C02C9004BCB8F /* CalculatorMock.swift in Sources */,
+				9D9C7A8A2A7C07D8004BCB8F /* ArithmeticExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

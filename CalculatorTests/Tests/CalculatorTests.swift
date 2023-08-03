@@ -12,7 +12,7 @@ import XCTest
 final class CalculatorTests: XCTestCase {
 
     /// Calculator property (guaranteed to be initialized)
-    var calculator: Calculator!
+    var calculator: CalculatorProtocol!
 
     // MARK: - SETUP AND TEARDOWN
 
@@ -159,7 +159,15 @@ final class CalculatorTests: XCTestCase {
     }
 
     // MARK: - EVALUATING EXPRESSIONS
-
+    
+    /// Test if addition correctly calls the ArithmeticExpression's evaluate function.
+    func test_calls_evaluate() {
+        calculator = Calculator(arithmeticExpression: ArithmeticExpressionMock(number: 0, operation: .addition))
+        calculator.appendDigit(.zero)
+        calculator.calculateResult()
+        XCTAssertEqual(calculator.displayText, "-111", "ArithmeticExpressionMock evaluate function should return -111")
+    }
+    
     /// Test addition
     func test_addition() {
         /// Test simplest addition (1 + 2)

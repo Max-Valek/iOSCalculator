@@ -8,7 +8,7 @@
 import Foundation
 @testable import Calculator
 
-// Mock struct conforming to ArithmeticExpressionProtocol
+// Arithmetic expression mock for testing
 class ArithmeticExpressionMock: ArithmeticExpressionProtocol {
     let number: Decimal
     let operation: OperationButton
@@ -24,6 +24,6 @@ class ArithmeticExpressionMock: ArithmeticExpressionProtocol {
     func evaluate(with secondNumber: Decimal) -> Decimal {
         evaluateCalled = true
         // Return any predetermined value for testing purposes
-        return -1.0
+        return -111.0
     }
 }
