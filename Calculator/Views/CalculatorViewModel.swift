@@ -15,7 +15,16 @@ extension CalculatorView {
         // MARK: - PROPERTIES
         
         /// Instance of calculator model (API)
-        @Published private var calculator = Calculator()
+        //@Published private var calculator = Calculator()
+        
+        @Published private var calculator: CalculatorProtocol
+        /// Size of calculator buttons
+        var buttonSize: CGFloat = 0.0
+        
+        init(calculator: CalculatorProtocol = Calculator()) {
+            self.calculator = calculator
+            self.buttonSize = getButtonSize()
+        }
         
         /// Stringified number to display above buttons.
         var displayText: String {
@@ -31,13 +40,6 @@ extension CalculatorView {
                 [.digit(.one), .digit(.two), .digit(.three), .operation(.addition)],
                 [.digit(.zero), .decimal, .equals]
             ]
-        }
-        /// Size of calculator buttons
-        var buttonSize: CGFloat = 0.0
-        
-        /// Calculate button size once when class is initialized
-        init() {
-            self.buttonSize = getButtonSize()
         }
         
         // MARK: - ACTIONS

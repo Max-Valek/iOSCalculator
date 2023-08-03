@@ -22,6 +22,8 @@ protocol CalculatorProtocol {
     mutating func calculateResult()
     mutating func reset()
     mutating func clearLastEntry()
+    
+    func operationIsHighlighted(_ operation: OperationButton) -> Bool
 }
 
 // MARK: - Calculator

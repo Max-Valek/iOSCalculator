@@ -11,11 +11,14 @@ import SwiftUI
 @main
 struct CalculatorApp: App {
     
+    /// Calculator instance injected into ViewModel
+    private var calculator: CalculatorProtocol = Calculator()
+    
     var body: some Scene {
         WindowGroup {
+            /// Inject the ViewModel into the environment with the Calculator instance
             CalculatorView()
-                /// Pass ViewModel instance into environment.
-                .environmentObject(CalculatorView.ViewModel())
+                .environmentObject(CalculatorView.ViewModel(calculator: calculator))
         }
     }
 }
