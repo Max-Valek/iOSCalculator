@@ -10,21 +10,21 @@ import XCTest
 
 final class CalculatorTests: XCTestCase {
     
-    /// Calculator property
+    /// Calculator property (guaranteed to be initialized)
     var calculator: Calculator!
     
     // MARK: - SETUP AND TEARDOWN
     
     /// Set up the calculator before each test case.
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    override func setUp() {
+        super.setUp()
         calculator = Calculator()
     }
     
     /// Set calculator to nil after each test case.
-    override func tearDownWithError() throws {
+    override func tearDown() {
         calculator = nil
-        try super.tearDownWithError()
+        super.tearDown()
     }
     
     // MARK: - BUTTONS PRESSED
