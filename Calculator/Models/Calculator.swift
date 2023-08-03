@@ -7,34 +7,26 @@
 
 import Foundation
 
-/// Calculator extension containing ArithmeticExpression struct.
-//private extension Calculator {
-//    /// Private helper struct used to store single arithmetic expressions during calculator operation.
-//    private struct ArithmeticExpression: Equatable {
-//        /// A decimal value representing the current number in the expression.
-//        var number: Decimal
-//        /// Enum value of type ArithmeticOperation indicating the arithmetic operation to be performed
-//        var operation: OperationButton
-//
-//        /// Evaluates the stored arithmetic expression using the provided secondNumber (current number in the calculator)
-//        func evaluate(with secondNumber: Decimal) -> Decimal {
-//            switch operation {
-//            case .addition:
-//                return number + secondNumber
-//            case .subtraction:
-//                return number - secondNumber
-//            case .multiplication:
-//                return number * secondNumber
-//            case .division:
-//                return number / secondNumber
-//            }
-//        }
-//    }
-//}
+// MARK: - CalculatorProtocol
 
-/// Serves as the model and API for the calculator application. It provides functionality to
-/// perform arithmetic operations, handle user input, and display the current state of the calculator.
-struct Calculator {
+/// Interface for the Calculator struct (allows mocking during testing)
+protocol CalculatorProtocol {
+    var displayText: String { get }
+    var showAllClear: Bool { get }
+    
+    mutating func appendDigit(_ digit: DigitButton)
+    mutating func setOperation(_ operation: OperationButton)
+    mutating func negate()
+    mutating func convertToPercentage()
+    mutating func addDecimal()
+    mutating func calculateResult()
+    mutating func reset()
+    mutating func clearLastEntry()
+}
+
+// MARK: - Calculator
+
+struct Calculator: CalculatorProtocol {
     
     // MARK: - PRIVATE PROPERTIES
     
@@ -72,18 +64,18 @@ struct Calculator {
         return getNumberString(forNumber: displayedNumber).contains(".")
     }
     
+    // MARK: - INIT
+    
     init(arithmeticExpression: ArithmeticExpressionProtocol? = nil) {
         self.arithmeticExpression = arithmeticExpression
     }
     
     // MARK: - PROPERTIES ACCESSIBLE TO VIEWMODEL
     
-    /// String representation of the number to display
     var displayText: String {
         return getNumberString(forNumber: displayedNumber, withCommas: true)
     }
     
-    /// Whether to show all clear or clear button
     var showAllClear: Bool {
         currentNumber == nil && arithmeticExpression == nil && result == nil || clearPressed
     }
@@ -183,7 +175,22 @@ struct Calculator {
     
     /// Get the number as a formatted string.
     private func getNumberString(forNumber number: Decimal?, withCommas: Bool = false) -> String {
-        return formattedNumberString(forNumber: number, isNegative: isNegative, decimalPressed: decimalPressed, zerosTrailingDecimal: zerosTrailingDecimal, withCommas: true)
+        /// inputted number as a string
+        var numberString = (withCommas ? number?.formatted(.number) : number.map(String.init)) ?? "0"
+        /// add '-' to beginning if number is negative
+        if isNegative {
+            numberString.insert("-", at: numberString.startIndex)
+        }
+        /// add '.' to the end for decimals
+        if decimalPressed {
+            numberString.insert(".", at: numberString.endIndex)
+        }
+        /// add additional zeros
+        if zerosTrailingDecimal > 0 {
+            numberString.append(String(repeating: "0", count: zerosTrailingDecimal))
+        }
+
+        return numberString
     }
     
     /// Check if the digit can be added.
